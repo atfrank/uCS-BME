@@ -16,7 +16,7 @@ pip install sklearn seaborn matplotlib tqdm
 
 # Get chemical shifts (CS)
 ```
-usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path> ```
+usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path>
 ```
 * Example
 ```
