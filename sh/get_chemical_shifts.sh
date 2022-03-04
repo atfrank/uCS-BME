@@ -8,17 +8,19 @@ else
 	ct_data=$3	
 	SS2CS=$4
 	
-	# clean up
-	rm -f ${prefix}_formatted.csv		
-	
+	# initialize new file
+	prefix=${ct_data}/${id}
+	echo "model,resid,resname,nucleus,simcs,id" > ${prefix}_formatted.csv	
+
+	# loop over models and compute chemical shifts
 	for model in ${models}
 	do
-		prefix=${ct_data}/${id}
 		if [[ -f ${prefix}_${model}.ct ]]
 		then
 			# get chemical shifts
-			python ${SS2CS}/ss2cs.py ${prefix}_${model}.ct ${id} ${prefix}.csv  ${SS2CS} &> /dev/null
-			awk -v model=$model  '{print model, $0}' ${prefix}.csv | tee -a ${prefix}_formatted.csv		
+			python ${SS2CS}/ss2cs.py ${prefix}_${model}.ct ${id} ${prefix}.csv ${model} ${SS2CS} &> /dev/null
+			cat ${prefix}.csv >> ${prefix}_formatted.csv		
 		fi
 	done
+	head ${prefix}_formatted.csv	
 fi

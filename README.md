@@ -19,35 +19,37 @@ usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path>
 ```
 * Example
 ```
-export CSBME=path/to/this/repo
-bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${CSBME}/SS2CS
+export uCSBME=path/to/this/repo
+bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${uCSBME}/SS2CS
 ```
 
 # Reweight conformational library using unassigned data
 
 ```
-usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -e1 ERROR_ONE -e2 ERROR_TWO [-o OUTPUT] [-t TMPDIR] [-d]
+usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -e1 ERROR_ONE -e2 ERROR_TWO -n1 NAME_ONE -n2 NAME_TWO [-o OUTPUT] [-t TMPDIR]
 
 optional arguments:
   -h, --help            show this help message and exit
   -e EXPERIMENTAL, --experimental EXPERIMENTAL
-                        Experimental peaks (peaks those peaks to have names '(F1) [ppm]' (for C or N nuclei) and '(F2) [ppm]' (for H
-                        nuclei))
+                        Experimental peaks (peaks those peaks to have names
   -s SIMULATED, --simulated SIMULATED
                         Simulated chemical shift table
   -e1 ERROR_ONE, --error_one ERROR_ONE
                         Simulated chemical shift error for dimenison 1
   -e2 ERROR_TWO, --error_two ERROR_TWO
                         Simulated chemical shift error for dimenison 2
+  -n1 NAME_ONE, --name_one NAME_ONE
+                        Column name for dimenison 1
+  -n2 NAME_TWO, --name_two NAME_TWO
+                        Column name for dimenison 2
   -o OUTPUT, --output OUTPUT
                         Output prefix for generated files
   -t TMPDIR, --tmpdir TMPDIR
                         Location used to store auxillary files
-  -d, --degub           run in debug mode
 ```
 * Example:
 ```
-python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UTR/iminos_simulated_test.csv -e1 1.89 -e2 0.39 -o data/tmp/test -t data/tmp/
+python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UTR/iminos_simulated_test.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -o data/tmp/test -t data/
 ```
 
 * Input Format:

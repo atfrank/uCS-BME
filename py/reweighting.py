@@ -75,10 +75,10 @@ def read_exp_cs(input_exp):
     expcs = pd.read_csv(input_exp, sep = "\s+", header = None, names = names)
     return(expcs)
 
-def read_peaks(input_exp):    
+def read_peaks(input_exp, name_one, name_two):    
     # read in experimental chemical shift file
     expcs_paired = pd.read_csv(input_exp, sep = ',', header=0)
-    expcs_paired = expcs_paired[['(F2) [ppm]', '(F1) [ppm]']]
+    expcs_paired = expcs_paired[[name_two, name_one]]
     expcs_paired.columns = ['F2', 'F1']
     return(expcs_paired)
 

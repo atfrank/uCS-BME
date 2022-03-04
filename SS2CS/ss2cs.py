@@ -17,13 +17,15 @@ def load_ss2cs_model(nucleus, DIR_PATH):
   return(model)
 
 def main():
-	if len(sys.argv)!=5:
-		print('Usage: python ss2cs.py <path_to_ct_file> <rna_id> <path_to_output>')
+	if len(sys.argv)!=6:
+		print('Usage: python ss2cs.py <path_to_ct_file> <rna_id> <path_to_output> <conformer index> <path-to-ss2cs>')
 		return
 	inFile = sys.argv[1]
 	rna = sys.argv[2]
 	outFile = sys.argv[3]
-	DIR_PATH = sys.argv[4]
+	model_number = sys.argv[4]
+	DIR_PATH = sys.argv[5]
+	
 	# get working directory
 	# DIR_PATH = os.getcwd() # github repository  
 	nuclei = ["C1'", "C2'", "C3'", "C4'", "C5'","C2","C5","C6","C8", "H1'", "H2'", "H3'","H4'", "H5'","H5''","H2","H5","H6","H8", "N1", "H1", "N3", "H3"]
@@ -59,8 +61,11 @@ def main():
 		output_error = pd.Series(["."]*len(features))
 		result = pd.concat([output_resid, output_resname, output_nucleus, output_cs, output_error],axis=1)
 		results = pd.concat([results, result],ignore_index=True)
-		
-	results.to_csv(outFile, sep=' ', header=None, index=False)
+	
+	results.columns = ['resid', 'resname', 'nucleus', 'simcs', 'error']
+	results['model'] = model_number
+	results = results[['model', 'resid', 'resname', 'nucleus', 'simcs', 'error']]					
+	results.to_csv(outFile, sep=',', header=False, index=False)
 
 if __name__ == "__main__":
 	main()
