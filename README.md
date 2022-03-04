@@ -2,10 +2,9 @@
 
 # Requires:
 
-* BME
-```
-git clone https://github.com/sbottaro/BME.git
-```
+* BME code:
+	** slightly modified version of BME is included with this repo
+	** original BME code can be found [here](git clone https://github.com/sbottaro/BME.git)
 
 * Python modules
 ```
