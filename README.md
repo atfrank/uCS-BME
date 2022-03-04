@@ -4,7 +4,7 @@
 
 * BME code:
 	* slightly modified version of BME is included with this repo
-	* original BME code can be found [here.](https://github.com/KULL-Centre/BME/)
+	* original BME code can be found [here](https://github.com/KULL-Centre/BME/)
 
 * Python modules
 ```
