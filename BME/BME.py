@@ -421,10 +421,8 @@ class Reweight:
 
 
 
-    def theta_scan(self,ID, thetas=[],train_fraction_data=0.75,nfold=5,train_fraction_samples=0.8):
-
+    def theta_scan(self, thetas=[],train_fraction_data=0.75,nfold=5,train_fraction_samples=0.8, tmp_dir = "theta_scan"):
         np.random.seed(42)
-        tmp_dir = "theta_scan_" + ID
         os.system("mkdir -p %s" % tmp_dir)
         if(len(thetas)==0): thetas = np.geomspace(0.1,10000,10)
         print("Performing %d-fold cross validation for %d theta values" % (nfold,len(thetas)))
@@ -463,7 +461,7 @@ class Reweight:
             exp_test = exp[test_idx_data,:]
             calc_test = calc[:,test_idx_data]
         
-            r1 = Reweight("crossval_%s_%d" % (self.name,i),w0=np.copy(self.w0[train_idx_samples]))        
+            r1 = Reweight("%s/crossval_%s_%d" % (tmp_dir, self.name,i),w0=np.copy(self.w0[train_idx_samples]))        
             r1.load_array(labels_train,np.copy(exp_train),np.copy(calc_train[train_idx_samples,:]))
             l_init = True
         
@@ -644,7 +642,7 @@ class Reweight:
             exp_test = exp[test_idx_data,:]
             calc_test = calc[:,test_idx_data]
 
-            r1 = Reweight("crossval_%s_%d" % (self.name,i),w0=np.copy(self.w0[train_idx_samples]))       
+            r1 = Reweight("%s/crossval_%s_%d" % (tmp_dir, self.name,i),w0=np.copy(self.w0[train_idx_samples]))       
             r1.load_array(train_idx_data,np.copy(exp_train),np.copy(calc_train[train_idx_samples,:]))
         
             for j,t in enumerate(thetas):
