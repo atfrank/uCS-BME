@@ -1,4 +1,4 @@
-# uCS-BME: Framework for Using Unassigned NMR Chemical Shifts to Model RNA Secondary Structure
+# uCS-BME: Framework for Using Unassigned 2D NMR Chemical Shifts to Model RNA Secondary Structure
 
 # Requires:
 
@@ -23,7 +23,7 @@ export uCSBME=path/to/this/repo
 bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${uCSBME}/SS2CS
 ```
 
-# Reweight conformational library using unassigned data
+# Reweight conformational library using 2D unassigned data
 
 ```
 usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -e1 ERROR_ONE -e2 ERROR_TWO -n1 NAME_ONE -n2 NAME_TWO [-o OUTPUT] [-t TMPDIR]
