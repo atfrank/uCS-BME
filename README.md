@@ -26,30 +26,37 @@ bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${uCSBME}/SS2CS
 # Reweighting conformational library using 2D unassigned CS data
 
 ```
-usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -n1 NAME_ONE -n2 NAME_TWO -e1 ERROR_ONE -e2 ERROR_TWO [-o OUTPUT] [-t TMPDIR]
+usage: ucsbme.py [-h] -ex EXPERIMENTAL -si SIMULATED -n1 NAME_ONE -n2 NAME_TWO -e1 ERROR_ONE -e2 ERROR_TWO [-ou OUTPUT] [-im] [-tm TMPDIR] [-se SEPARATION]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -e EXPERIMENTAL, --experimental EXPERIMENTAL
-                        Experimental peaks (peaks those peaks to have names
-  -s SIMULATED, --simulated SIMULATED
-                        Simulated chemical shift table
+  -ex EXPERIMENTAL, --experimental EXPERIMENTAL
+                        CSV file with experimental peaks (peaks those peaks to have names
+  -si SIMULATED, --simulated SIMULATED
+                        CSV file with simulated chemical shift table
   -n1 NAME_ONE, --name_one NAME_ONE
-                        Column name for dimenison 1 in the experimental peak file
+                        Column name for dimenison 1 (C or N) in the experimental peak file
   -n2 NAME_TWO, --name_two NAME_TWO
-                        Column name for dimenison 2 in the experimental peak file
+                        Column name for dimenison 2 (H) in the experimental peak file
   -e1 ERROR_ONE, --error_one ERROR_ONE
-                        Expected chemical shift prediction error for dimenison 1
+                        Estimated chemical shift prediction error for dimenison 1
   -e2 ERROR_TWO, --error_two ERROR_TWO
-                        Expected chemical shift prediction error for dimenison 2
-  -o OUTPUT, --output OUTPUT
+                        Estimated chemical shift prediction error for dimenison 2
+  -ou OUTPUT, --output OUTPUT
                         Output prefix for generated files
-  -t TMPDIR, --tmpdir TMPDIR
+  -im, --imino_only     Use only imino simulated chemical shifts (GUA: N1/H1 and URA: N3/H3)
+  -tm TMPDIR, --tmpdir TMPDIR
                         Location used to store auxillary files
+  -se SEPARATION, --separation SEPARATION
+                        Separation character in CSV
 ```
-* Example: Running uCS-BME on the 5-UTR of the SAR-CoV-2 RNA using imino chemical shifts (```-im``` flag)
+* Example: 
+	* Run uCS-BME on the 5-UTR of the SAR-CoV-2 RNA
+	* Use imino chemical shifts (```-im``` flag)
+	* Store result in ```test/test``` as specified (```-ou``` flag)
 ```
-python ucsbme.py -ex SARS-CoV-2/5_UTR/iminos_experimental.csv -si SARS-CoV-2/5_UTR/iminos_simulated.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou data/tmp/test -tm data/ -im
+rm -rfv test && mkdir test
+python ucsbme.py -ex SARS-CoV-2/5_UTR/iminos_experimental.csv -si SARS-CoV-2/5_UTR/iminos_simulated.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou test/test -tm test/tmp/ -im
 ```
 
 * Input Format:

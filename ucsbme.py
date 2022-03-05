@@ -30,6 +30,7 @@ if __name__ == "__main__":
     parser.add_argument("-tm","--tmpdir", help="Location used to store auxillary files")
     parser.add_argument("-se","--separation", help="Separation character in CSV", default = ",")
     
+    
     # parse command line
     a = parser.parse_args()  
         
@@ -57,11 +58,12 @@ if __name__ == "__main__":
     bme_sim = "%s_sim.dat"%(a.output)
 
     expcs_bme, simcs_bme = write_BME_chemical_shifts_unassigned(expcs_hist, simcs_hist, output_name_exp = bme_exp, output_name_sim = bme_sim, error = 1)
-    bmea = bme.Reweight("ucsbme_%s_%s"%(error_CN, error_H))     
+    name = "ucsbme_%s_%s"%(error_CN, error_H)
+    bmea = bme.Reweight(name)     
     bmea.load(bme_exp , bme_sim)
 
-    theta, avg_phi = bmea.theta_scan([i for i in np.linspace(1, 100, 200)], tmp_dir = "%s/scan_%s_%s/"%(a.tmpdir, error_CN, error_H))
-    optimal_weights, chi2_before, chi2_after, srel = find_weights(bme_exp , bme_sim, theta = theta)
+    theta, avg_phi = bmea.theta_scan([i for i in np.linspace(1, 100, 200)], tmp_dir = "%s/"%(a.tmpdir))
+    optimal_weights, chi2_before, chi2_after, srel = find_weights(bme_exp , bme_sim, theta = theta, name = name)
 
     # collect data
     n_conformers = len(optimal_weights)
@@ -72,7 +74,7 @@ if __name__ == "__main__":
     
     # plot of histogram errors vs weights
     weights.plot(x = "w", y = "errors", kind = "scatter")       
-    plt.savefig("%s_histogram_errors_best_%s_%s.pdf"%(a.output, error_CN, error_H))
+    plt.savefig("%s_ucsbme_histogram_errors_%s_%s.pdf"%(a.output, error_CN, error_H))
 
     # plot 2D histogram
     xlim = (expcs_paired['F1'].min(), expcs_paired['F1'].max())
@@ -94,4 +96,11 @@ if __name__ == "__main__":
     ax.grid('on', which='minor', axis='y' )
     ax.tick_params(which='major', length=0, axis='x')
     ax.tick_params(which='major', length=0, axis='y')   
-    plt.savefig("%s_2D_histogram.pdf"%(a.output))
+    plt.savefig("%s_ucsbme_2D_histogram.pdf"%(a.output))
+    
+    # clean up
+    os.rename('%s.log'%(name), '%s_ucsbme.log'%(a.output))
+    os.rename('%s/crossval_%s.png'%(a.tmpdir, name), '%s_ucsbme_crossval.png'%(a.output))
+    os.rename(bme_sim, '%s/bme_sim.txt'%(a.tmpdir))
+    os.rename(bme_exp, '%s/bme_exp.txt'%(a.tmpdir))
+    

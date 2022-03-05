@@ -211,7 +211,7 @@ def write_BME_chemical_shifts_unassigned(expcs_hist, simcs_hist, output_name_exp
     ''' writes output flattened, BME-ready histogram files '''
     expcs = pd.DataFrame({"0": expcs_hist})
     expcs["1"] = error
-    expcs.columns = ['DATA=JCOUPLINGS', 'PRIOR=GAUSS']
+    expcs.columns = ['DATA=CS', 'PRIOR=GAUSS']
     expcs.index = [i for i in range(0, expcs.shape[0])]
     simcs = pd.DataFrame.from_dict(simcs_hist, orient='index')
     expcs.to_csv(output_name_exp, sep = " ", index = True, index_label = "#")
@@ -253,7 +253,7 @@ def write_BME_chemical_shifts(input_exp = "data/chemical_shifts/measured_shifts_
     expcs = cs[['model', 'expCS', 'error']]
     expcs = expcs[expcs.model==1]
     expcs = expcs[['expCS', 'error']]
-    expcs.columns = ['DATA=JCOUPLINGS', 'PRIOR=GAUSS']
+    expcs.columns = ['DATA=CS', 'PRIOR=GAUSS']
     expcs.index = [i for i in range(0, expcs.shape[0])]
     expcs.to_csv(output_name_exp, sep = " ", index = True, index_label = "#")
     
@@ -267,7 +267,7 @@ def write_BME_chemical_shifts(input_exp = "data/chemical_shifts/measured_shifts_
     return(expcs, simcs)
 
 
-def find_weights(exp_file, sim_file, theta, w0 = None):
+def find_weights(exp_file, sim_file, theta, w0 = None, name = "test"):
     """ Find weights using BME 
             exp_file: path to experimental observable file formatted for BME analysis
             sim_file: path to simulated observable file formatted for BME analysis
@@ -281,9 +281,9 @@ def find_weights(exp_file, sim_file, theta, w0 = None):
             srel: the relative entropy of these fitd weights relative to the initial (prior) weights
     """
     if w0 is None:
-        bmea = bme.Reweight("test")
+        bmea = bme.Reweight(name)
     else:
-        bmea = bme.Reweight("test", w0=w0)        
+        bmea = bme.Reweight(name, w0=w0)        
     bmea.load(exp_file, sim_file)
     chi2_before, chi2_after, srel = bmea.fit(theta=theta)
     return bmea.get_weights(), chi2_before, chi2_after, srel
