@@ -15,15 +15,16 @@ pip install sklearn seaborn matplotlib tqdm
 
 # Get chemical shifts (CS)
 ```
-usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path>
+usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path> <output>
 ```
 * Example: Use SS2CS to predicted chemical shifts from a collection of secondary structures
 	* In this example, the script expects to find:
 		* ```2LU0_1.ct```, ```2LU0_2.ct```, ```2LU0_3.ct```, ..., ```2LU0_12.ct``` in  ```data/cts/``` 
 		* the SS2CS model and required data in ```${uCSBME}/SS2CS/```
+		* stores predicted chemical shifts in ```data/cts/2LU0_cs.csv```
 	```
 	export uCSBME=path/to/this/repo
-	bash sh/get_chemical_shifts.sh 2LU0 12 data/cts/ ${uCSBME}/SS2CS/
+	bash sh/get_chemical_shifts.sh 2LU0 12 data/cts/ ${uCSBME}/SS2CS/ data/cts/2LU0_cs.csv
 	```
 # Reweighting conformational library using 2D unassigned CS data
 
