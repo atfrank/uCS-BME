@@ -54,10 +54,10 @@ optional arguments:
 	* Run uCS-BME on the 5-UTR of the SAR-CoV-2 RNA
 	* Use imino chemical shifts (```-im``` flag)
 	* Store result in ```test/test``` as specified (```-ou``` flag)
-	```
-	rm -rfv test && mkdir test
-	python ucsbme.py -ex data/SARS-CoV-2/5_UTR/iminos_experimental.csv -si data/SARS-CoV-2/5_UTR/iminos_simulated.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou test/test -tm test/tmp/ -im
-	```
+		```
+		rm -rfv test && mkdir test
+		python ucsbme.py -ex data/SARS-CoV-2/5_UTR/iminos_experimental.csv -si data/SARS-CoV-2/5_UTR/iminos_simulated.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou test/test -tm test/tmp/ -im
+		```
 
 * Input Format:
 	* Unassigned experimental data:
