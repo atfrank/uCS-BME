@@ -23,7 +23,7 @@ export uCSBME=path/to/this/repo
 bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${uCSBME}/SS2CS
 ```
 
-# Reweight conformational library using 2D unassigned data
+# Reweighting conformational library using 2D unassigned CS data
 
 ```
 usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -n1 NAME_ONE -n2 NAME_TWO -e1 ERROR_ONE -e2 ERROR_TWO [-o OUTPUT] [-t TMPDIR]
@@ -53,7 +53,7 @@ python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UT
 ```
 
 * Input Format:
-	* Unassigned experimental data
+	* Unassigned experimental data:
 		```
 		Peak,Region,Type,Index (F2),Index (F1),(F2) [ppm],(F1) [ppm],(F2) [Hz],(F1) [Hz],Intensity [abs],Annotation,
 		1,1,AUTOMATIC,195.0,352.0,13.6096,148.1867,10889.4361,12014.4555,53341.56,,
@@ -68,7 +68,7 @@ python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UT
 		...
 		...
 		```
-	* Simulated chemical shift data
+	* Simulated chemical shift data:
 		```
 		model,resid,resname,nucleus,simcs,id
 		1,1,ADE,N1,223.7364120000003,.
