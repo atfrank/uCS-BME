@@ -75,16 +75,16 @@ def read_exp_cs(input_exp):
     expcs = pd.read_csv(input_exp, sep = "\s+", header = None, names = names)
     return(expcs)
 
-def read_peaks(input_exp, name_one, name_two):    
+def read_peaks(input_exp, name_one, name_two, sep = ','):    
     # read in experimental chemical shift file
-    expcs_paired = pd.read_csv(input_exp, sep = ',', header=0)
+    expcs_paired = pd.read_csv(input_exp, sep = sep, header=0)
     expcs_paired = expcs_paired[[name_two, name_one]]
     expcs_paired.columns = ['F2', 'F1']
     return(expcs_paired)
 
-def read_computed_cs(input_sim, names = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'id']):
+def read_computed_cs(input_sim, names = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'id'], sep = ","):
     # read in computed (simulated) chemical shift file    
-    simcs = pd.read_csv(input_sim, sep = "\s+", header = None, names = names)
+    simcs = pd.read_csv(input_sim, sep = sep, header = None, names = names)
     return(simcs)
         
 def merge_exp_computed_cs(input_exp, input_sim):

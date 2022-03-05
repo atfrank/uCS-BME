@@ -19,26 +19,25 @@ matplotlib.rcParams['font.sans-serif'] = ['Tahoma']
 
 if __name__ == "__main__":        
     parser = argparse.ArgumentParser()
-    parser.add_argument("-e","--experimental", help="Experimental peaks (peaks those peaks to have names", required = True)
-    parser.add_argument("-s","--simulated", help="Simulated chemical shift table", required = True)
+    parser.add_argument("-ex","--experimental", help="CSV file with experimental peaks (peaks those peaks to have names", required = True)
+    parser.add_argument("-si","--simulated", help="CSV file with simulated chemical shift table", required = True)
     parser.add_argument("-n1","--name_one", help="Column name for dimenison 1 (C or N) in the experimental peak file", default = "(F1) [ppm]", required = True, type = str)
     parser.add_argument("-n2","--name_two", help="Column name for dimenison 2 (H) in the experimental peak file ", default = "(F2) [ppm]", required = True, type = str)
     parser.add_argument("-e1","--error_one", help="Estimated chemical shift prediction error for dimenison 1", required = True, type = float)
     parser.add_argument("-e2","--error_two", help="Estimated chemical shift prediction error for dimenison 2", required = True, type = float)
-    parser.add_argument("-o","--output", help="Output prefix for generated files", type = str, default = "test")
-    parser.add_argument("-i","--imino_only", help="Use only imino simulated chemical shifts (GUA: N1/H1 and URA: N3/H3)", action = "store_true")
-    parser.add_argument("-t","--tmpdir", help="Location used to store auxillary files")
-    
+    parser.add_argument("-ou","--output", help="Output prefix for generated files", type = str, default = "test")
+    parser.add_argument("-im","--imino_only", help="Use only imino simulated chemical shifts (GUA: N1/H1 and URA: N3/H3)", action = "store_true")
+    parser.add_argument("-tm","--tmpdir", help="Location used to store auxillary files")
+    parser.add_argument("-se","--separation", help="Separation character in CSV", default = ",")
     
     # parse command line
     a = parser.parse_args()  
         
     # read in experimental 2D peaks
-    #expcs_paired = read_peaks('SARS-CoV-2/%s/iminos_experimental.csv'%(ID))
-    expcs_paired = read_peaks(a.experimental, a.name_one, a.name_two)
+    expcs_paired = read_peaks(a.experimental, a.name_one, a.name_two, a.separation )
 
     # read in simulated chemical shifts and convert to 2D peaks
-    simcs = read_computed_cs(a.simulated, names = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'id'])
+    simcs = read_computed_cs(a.simulated, names = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'id'], sep = a.separation)
     if a.imino_only:
         print("NOTE: Only retaining simulated chemical shifts for imino nuclei")
         pairing = {"H1":"N1", "H3":"N3"}
@@ -48,7 +47,6 @@ if __name__ == "__main__":
     simcs_paired = create_paired_data_simulated(simcs, csname = "simcs", debug = False, pairing = pairing)
 
     # set errors
-    # error_CN, error_H =  1.89, 0.39
     error_CN, error_H =  a.error_one, a.error_two
 
     # create histograms

@@ -47,9 +47,9 @@ optional arguments:
   -t TMPDIR, --tmpdir TMPDIR
                         Location used to store auxillary files
 ```
-* Example: Running uCS-BME on the 5-UTR of the SAR-CoV-2 RNA using imino chemical shifts (```-i``` flag)
+* Example: Running uCS-BME on the 5-UTR of the SAR-CoV-2 RNA using imino chemical shifts (```-im``` flag)
 ```
-python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UTR/iminos_simulated_test.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -o data/tmp/test -t data/ -i
+python ucsbme.py -ex SARS-CoV-2/5_UTR/iminos_experimental.csv -si SARS-CoV-2/5_UTR/iminos_simulated.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou data/tmp/test -tm data/ -im
 ```
 
 * Input Format:
