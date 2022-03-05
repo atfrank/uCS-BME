@@ -21,12 +21,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-e","--experimental", help="Experimental peaks (peaks those peaks to have names", required = True)
     parser.add_argument("-s","--simulated", help="Simulated chemical shift table", required = True)
-    parser.add_argument("-e1","--error_one", help="Simulated chemical shift error for dimenison 1", required = True, type = float)
-    parser.add_argument("-e2","--error_two", help="Simulated chemical shift error for dimenison 2", required = True, type = float)
-    parser.add_argument("-n1","--name_one", help="Column name for dimenison 1", default = "(F1) [ppm]", required = True, type = str)
-    parser.add_argument("-n2","--name_two", help="Column name for dimenison 2", default = "(F2) [ppm]", required = True, type = str)
+    parser.add_argument("-n1","--name_one", help="Column name for dimenison 1 (C or N) in the experimental peak file", default = "(F1) [ppm]", required = True, type = str)
+    parser.add_argument("-n2","--name_two", help="Column name for dimenison 2 (H) in the experimental peak file ", default = "(F2) [ppm]", required = True, type = str)
+    parser.add_argument("-e1","--error_one", help="Estimated chemical shift prediction error for dimenison 1", required = True, type = float)
+    parser.add_argument("-e2","--error_two", help="Estimated chemical shift prediction error for dimenison 2", required = True, type = float)
     parser.add_argument("-o","--output", help="Output prefix for generated files", type = str, default = "test")
+    parser.add_argument("-i","--imino_only", help="Use only imino simulated chemical shifts (GUA: N1/H1 and URA: N3/H3)", action = "store_true")
     parser.add_argument("-t","--tmpdir", help="Location used to store auxillary files")
+    
     
     # parse command line
     a = parser.parse_args()  
@@ -37,9 +39,13 @@ if __name__ == "__main__":
 
     # read in simulated chemical shifts and convert to 2D peaks
     simcs = read_computed_cs(a.simulated, names = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'id'])
-    
-    simcs = pd.concat([simcs[simcs.resname.isin(['GUA']) & simcs.nucleus.isin(['N1', 'H1'])], simcs[simcs.resname.isin(['URA']) & simcs.nucleus.isin(['N3', 'H3'])]])
-    simcs_paired = create_paired_data_simulated(simcs, csname = "simcs", debug = False, pairing = {"H1":"N1", "H3":"N3"})
+    if a.imino_only:
+        print("NOTE: Only retaining simulated chemical shifts for imino nuclei")
+        pairing = {"H1":"N1", "H3":"N3"}
+        simcs = pd.concat([simcs[simcs.resname.isin(['GUA']) & simcs.nucleus.isin(['N1', 'H1'])], simcs[simcs.resname.isin(['URA']) & simcs.nucleus.isin(['N3', 'H3'])]])
+    else:
+        pairing = {"H1'" : "C1'", "H2'" : "C2'", "H3'" : "C3'", "H4'" : "C4'", "H5'" : "C5'", "H5''" : "C5'", "H2" : "C2", "H5" : "C5", "H6" : "C6", "H8" : "C8"}
+    simcs_paired = create_paired_data_simulated(simcs, csname = "simcs", debug = False, pairing = pairing)
 
     # set errors
     # error_CN, error_H =  1.89, 0.39

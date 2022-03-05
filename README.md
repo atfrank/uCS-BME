@@ -26,7 +26,7 @@ bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${uCSBME}/SS2CS
 # Reweight conformational library using 2D unassigned data
 
 ```
-usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -e1 ERROR_ONE -e2 ERROR_TWO -n1 NAME_ONE -n2 NAME_TWO [-o OUTPUT] [-t TMPDIR]
+usage: ucsbme.py [-h] -e EXPERIMENTAL -s SIMULATED -n1 NAME_ONE -n2 NAME_TWO -e1 ERROR_ONE -e2 ERROR_TWO [-o OUTPUT] [-t TMPDIR]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -34,22 +34,22 @@ optional arguments:
                         Experimental peaks (peaks those peaks to have names
   -s SIMULATED, --simulated SIMULATED
                         Simulated chemical shift table
-  -e1 ERROR_ONE, --error_one ERROR_ONE
-                        Simulated chemical shift error for dimenison 1
-  -e2 ERROR_TWO, --error_two ERROR_TWO
-                        Simulated chemical shift error for dimenison 2
   -n1 NAME_ONE, --name_one NAME_ONE
-                        Column name for dimenison 1
+                        Column name for dimenison 1 in the experimental peak file
   -n2 NAME_TWO, --name_two NAME_TWO
-                        Column name for dimenison 2
+                        Column name for dimenison 2 in the experimental peak file
+  -e1 ERROR_ONE, --error_one ERROR_ONE
+                        Expected chemical shift prediction error for dimenison 1
+  -e2 ERROR_TWO, --error_two ERROR_TWO
+                        Expected chemical shift prediction error for dimenison 2
   -o OUTPUT, --output OUTPUT
                         Output prefix for generated files
   -t TMPDIR, --tmpdir TMPDIR
                         Location used to store auxillary files
 ```
-* Example:
+* Example: Running uCS-BME on the 5-UTR of the SAR-CoV-2 RNA using imino chemical shifts (```-i``` flag)
 ```
-python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UTR/iminos_simulated_test.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -o data/tmp/test -t data/
+python ucsbme.py  -e SARS-CoV-2/5_UTR/iminos_experimental.csv -s SARS-CoV-2/5_UTR/iminos_simulated_test.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -o data/tmp/test -t data/ -i
 ```
 
 * Input Format:
