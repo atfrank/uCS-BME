@@ -17,12 +17,14 @@ pip install sklearn seaborn matplotlib tqdm
 ```
 usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path>
 ```
-* Example
-```
-export uCSBME=path/to/this/repo
-bash sh/get_chemical_shifts.sh 2LU0 2 data/ ${uCSBME}/SS2CS
-```
-
+* Example: Use SS2CS to predicted chemical shifts from a collection of secondary structures
+	* In this example, the script expects to find:
+		* ```2LU0_1.ct```, ```2LU0_2.ct```, ```2LU0_3.ct```, ..., ```2LU0_12.ct``` in  ```data/cts/``` 
+		* the SS2CS model and required data in ```${uCSBME}/SS2CS/```
+	```
+	export uCSBME=path/to/this/repo
+	bash sh/get_chemical_shifts.sh 2LU0 12 data/cts/ ${uCSBME}/SS2CS/
+	```
 # Reweighting conformational library using 2D unassigned CS data
 
 ```
@@ -50,8 +52,7 @@ optional arguments:
   -se SEPARATION, --separation SEPARATION
                         Separation character in CSV
 ```
-* Example: 
-	* Run uCS-BME on the 5-UTR of the SAR-CoV-2 RNA
+* Example: Run uCS-BME on the 5-UTR of the SAR-CoV-2 RNA
 	* Use imino chemical shifts (```-im``` flag)
 	* Store result in ```test/test``` as specified (```-ou``` flag)
 		```
