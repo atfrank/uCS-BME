@@ -110,20 +110,6 @@ optional arguments:
 		...
 		```
 # Citations:
-* If you us SS2CS to compute chemical shifts from secondary structures of RNA we request that you cite:
-
-```
-@article{zhang2021probabilistic,
-  title={Probabilistic Modeling of RNA Ensembles Using NMR Chemical Shifts},
-  author={Zhang, Kexin and Frank, Aaron T},
-  journal={The Journal of Physical Chemistry B},
-  volume={125},
-  number={35},
-  pages={9970--9978},
-  year={2021},
-  publisher={ACS Publications}
-}
-```
 		
 * If you use uCS-BME, we request that you cite:
 
@@ -148,3 +134,19 @@ optional arguments:
 	publisher={Springer}
 }
 ```
+
+* If you us SS2CS, we request that you cite:
+
+```
+@article{zhang2021probabilistic,
+  title={Probabilistic Modeling of RNA Ensembles Using NMR Chemical Shifts},
+  author={Zhang, Kexin and Frank, Aaron T},
+  journal={The Journal of Physical Chemistry B},
+  volume={125},
+  number={35},
+  pages={9970--9978},
+  year={2021},
+  publisher={ACS Publications}
+}
+```
+
