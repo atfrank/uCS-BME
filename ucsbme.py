@@ -29,6 +29,9 @@ if __name__ == "__main__":
     parser.add_argument("-im","--imino_only", help="Use only imino simulated chemical shifts (GUA: N1/H1 and URA: N3/H3)", action = "store_true")
     parser.add_argument("-tm","--tmpdir", help="Location used to store auxillary files")
     parser.add_argument("-se","--separation", help="Separation character in CSV", default = ",")
+    parser.add_argument("-th","--theta", help="maximum theta value used in BME cross-validation", default = 200, type = int)
+    parser.add_argument("-fo","--folds", help="number of BME cross-validation folds to carried out when choosing the optimal theta", default = 5, type = int)
+    parser.add_argument("-fr","--fraction", help="fraction of data used for training during BME cross-validation", default = 0.75, type = float)
     
     
     # parse command line
@@ -62,7 +65,8 @@ if __name__ == "__main__":
     bmea = bme.Reweight(name)     
     bmea.load(bme_exp , bme_sim)
 
-    theta, avg_phi = bmea.theta_scan([i for i in np.linspace(1, 100, 200)], tmp_dir = "%s/"%(a.tmpdir))
+	thetas = [i for i in np.linspace(1, a.theta, int(a.theta*2))]
+    theta, avg_phi = bmea.theta_scan(thetas = thetas, nfold = a.folds, train_fraction_data = a.fraction, tmp_dir = "%s/"%(a.tmpdir))
     optimal_weights, chi2_before, chi2_after, srel = find_weights(bme_exp , bme_sim, theta = theta, name = name)
 
     # collect data

@@ -39,7 +39,9 @@ optional arguments:
 	```
 	export uCSBME=path/to/this/repo
 	rm -rfv test && mkdir test
-	python SS2CS/ss2cs_batch.py -i data/SARS-CoV-2/5_UTR/user_all -n 12 -o test/simulated_cs.csv -s ${uCSBME}/SS2CS/ &> /dev/null
+	python SS2CS/ss2cs_batch.py -i data/SARS-CoV-2/5_UTR/user_all -n 12 -o test/simulated_cs.csv -s ${uCSBME}/SS2CS/ &> /dev/null	
+	# uncomment to predict chemical shifts for all 500 5'-UTR structures
+	# python SS2CS/ss2cs_batch.py -i data/SARS-CoV-2/5_UTR/user_all -n 500 -o test/simulated_cs.csv -s ${uCSBME}/SS2CS/ &> /dev/null
 	```
 ## Reweighting conformational library using 2D unassigned CS data
 
