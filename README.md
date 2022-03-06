@@ -13,7 +13,7 @@ conda activate ucsbme
 pip install sklearn seaborn matplotlib tqdm
 ```
 
-# Example: Application to the 5-UTR of the SAR-CoV-2 RNA
+# Example: 5-UTR of the SAR-CoV-2 RNA
 
 ## Get chemical shifts (CS)
 ```
