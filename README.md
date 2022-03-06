@@ -13,20 +13,24 @@ conda activate ucsbme
 pip install sklearn seaborn matplotlib tqdm
 ```
 
-# Get chemical shifts (CS)
+# Example: Application to 5-UTR of the SAR-CoV-2 RNA
+
+## Get chemical shifts (CS)
 ```
 usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path> <output>
 ```
-* Example: Use SS2CS to predicted chemical shifts from a collection of secondary structures
+* Use SS2CS to predicted chemical shifts from a collection of secondary structures
 	* In this example, the script expects to find:
 		* ```user_all_1.ct```, ```user_all_2.ct```, ```user_all_3.ct```, ..., ```user_all_12.ct``` in  ```data/SARS-CoV-2/5_UTR/``` 
 		* the SS2CS model and required data in ```${uCSBME}/SS2CS/```
 		* stores predicted chemical shifts in ```data/SARS-CoV-2/5_UTR/simulated.csv```
+		* NOTE: to reproduce modeling in paper set ```<#models>``` to 500
 	```
 	export uCSBME=path/to/this/repo
-	bash sh/get_chemical_shifts.sh user_all 12 data/SARS-CoV-2/5_UTR/ ${uCSBME}/SS2CS/ data/SARS-CoV-2/5_UTR/simulated.csv
+	rm -rfv test && mkdir test
+	bash sh/get_chemical_shifts.sh user_all 12 data/SARS-CoV-2/5_UTR/ ${uCSBME}/SS2CS/ test/simulated_cs.csv
 	```
-# Reweighting conformational library using 2D unassigned CS data
+## Reweighting conformational library using 2D unassigned CS data
 
 ```
 usage: ucsbme.py [-h] -ex EXPERIMENTAL -si SIMULATED -n1 NAME_ONE -n2 NAME_TWO -e1 ERROR_ONE -e2 ERROR_TWO [-ou OUTPUT] [-im] [-tm TMPDIR] [-se SEPARATION]
@@ -53,12 +57,11 @@ optional arguments:
   -se SEPARATION, --separation SEPARATION
                         Separation character in CSV
 ```
-* Example: Run uCS-BME on the 5-UTR of the SAR-CoV-2 RNA
+* Run uCS-BME on the 5-UTR of the SAR-CoV-2 RNA
 	* Use imino chemical shifts (```-im``` flag)
 	* Store result in ```test/test``` as specified (```-ou``` flag)
-		```
-		rm -rfv test && mkdir test
-		python ucsbme.py -ex data/SARS-CoV-2/5_UTR/iminos_experimental.csv -si data/SARS-CoV-2/5_UTR/iminos_simulated.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou test/test -tm test/tmp/ -im
+		```		
+		python ucsbme.py -ex data/SARS-CoV-2/5_UTR/iminos_experimental.csv -si test/simulated_cs.csv -e1 1.89 -e2 0.39 -n1 "(F1) [ppm]" -n2 "(F2) [ppm]" -ou test/test -tm test/tmp/ -im
 		```
 
 * Input Format:

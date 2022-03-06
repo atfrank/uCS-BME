@@ -11,7 +11,7 @@ else
 	
 	# initialize new file
 	prefix=${ct_data}/${id}
-	echo "model,resid,resname,nucleus,simcs,id" > ${output}
+	rm -rfv ${output}
 	
 	# loop over models and compute chemical shifts
 	for model in ${models}
