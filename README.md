@@ -17,7 +17,18 @@ pip install sklearn seaborn matplotlib tqdm
 
 ## Get chemical shifts (CS)
 ```
-usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path> <output>
+usage: ss2cs_batch.py [-h] -i INPUT -n NUMBER_OF_STRUCTURES -o OUTPUT -s SS2CS_PATH
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        input prefix for secondary structures stored as CT files
+  -n NUMBER_OF_STRUCTURES, --number_of_structures NUMBER_OF_STRUCTURES
+                        number of secondary structures
+  -o OUTPUT, --output OUTPUT
+                        path to save output CSV
+  -s SS2CS_PATH, --ss2cs_path SS2CS_PATH
+                        path to SS2CS
 ```
 * Use SS2CS to predicted chemical shifts from a collection of secondary structures
 	* In this example, the script expects to find:
@@ -28,7 +39,7 @@ usage: sh/get_chemical_shifts.sh <id>  <#models> <path-to-ct> <ss2cs-path> <outp
 	```
 	export uCSBME=path/to/this/repo
 	rm -rfv test && mkdir test
-	bash sh/get_chemical_shifts.sh user_all 12 data/SARS-CoV-2/5_UTR/ ${uCSBME}/SS2CS/ test/simulated_cs.csv
+	python SS2CS/ss2cs_batch.py -i "data/SARS-CoV-2/5_UTR/user_all" -n 12 -o test/simulated_cs.csv -s SS2CS &> /dev/null
 	```
 ## Reweighting conformational library using 2D unassigned CS data
 

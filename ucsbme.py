@@ -38,7 +38,7 @@ if __name__ == "__main__":
     expcs_paired = read_peaks(a.experimental, a.name_one, a.name_two, a.separation )
 
     # read in simulated chemical shifts and convert to 2D peaks
-    simcs = read_computed_cs(a.simulated, names = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'id'], sep = a.separation)
+    simcs = read_computed_cs(a.simulated, sep = a.separation)
     if a.imino_only:
         print("NOTE: Only retaining simulated chemical shifts for imino nuclei")
         pairing = {"H1":"N1", "H3":"N3"}

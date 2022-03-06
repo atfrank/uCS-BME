@@ -30,6 +30,10 @@ def main():
 	# DIR_PATH = os.getcwd() # github repository  
 	nuclei = ["C1'", "C2'", "C3'", "C4'", "C5'","C2","C5","C6","C8", "H1'", "H2'", "H3'","H4'", "H5'","H5''","H2","H5","H6","H8", "N1", "H1", "N3", "H3"]
 
+	# featurization
+	features = extractCT(inFile, rna)
+	features.drop('i_resname_char', axis=1, inplace=True)
+
 	# fit one hot encoder
 	train_X = pd.read_csv(DIR_PATH+"/data/train_X_NEW.csv",sep=' ',header=0)
 	train_X = train_X.drop(['id','length','resid'],axis = 1)
