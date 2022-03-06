@@ -124,6 +124,7 @@ optional arguments:
 		}
 		
 * If you use uCS-BME, we request that you cite:
+
 		@article{moudgal2021probabilistic,
 		  title={Using Unassigned NMR Chemical Shifts to Model RNA Secondary Structure},
 		  author={Moudgal, Neel and Arhin, Grace and Frank, Aaron T},
