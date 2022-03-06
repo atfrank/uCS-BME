@@ -35,7 +35,7 @@ optional arguments:
 		* ```user_all_1.ct```, ```user_all_2.ct```, ```user_all_3.ct```, ..., ```user_all_12.ct``` in  ```data/SARS-CoV-2/5_UTR/``` 
 		* the SS2CS model and required data in ```${uCSBME}/SS2CS/```
 	* Predicted chemical shifts will be stored in ```test/simulated_cs.csv```
-	* NOTE: to reproduce modeling in paper set ```<#models>``` to 500
+	* NOTE: To reproduce modeling in paper, change ```-n 12``` to ```-n 500```
 	```
 	export uCSBME=path/to/this/repo
 	rm -rfv test && mkdir test
