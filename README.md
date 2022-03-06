@@ -34,12 +34,12 @@ optional arguments:
 	* In this example, the script expects to find:
 		* ```user_all_1.ct```, ```user_all_2.ct```, ```user_all_3.ct```, ..., ```user_all_12.ct``` in  ```data/SARS-CoV-2/5_UTR/``` 
 		* the SS2CS model and required data in ```${uCSBME}/SS2CS/```
-		* stores predicted chemical shifts in ```data/SARS-CoV-2/5_UTR/simulated.csv```
-		* NOTE: to reproduce modeling in paper set ```<#models>``` to 500
+	* Predicted chemical shifts will be stored in ```test/simulated_cs.csv```
+	* NOTE: to reproduce modeling in paper set ```<#models>``` to 500
 	```
 	export uCSBME=path/to/this/repo
 	rm -rfv test && mkdir test
-	python SS2CS/ss2cs_batch.py -i "data/SARS-CoV-2/5_UTR/user_all" -n 12 -o test/simulated_cs.csv -s SS2CS &> /dev/null
+	python SS2CS/ss2cs_batch.py -i data/SARS-CoV-2/5_UTR/user_all -n 12 -o test/simulated_cs.csv -s ${uCSBME}/SS2CS/ &> /dev/null
 	```
 ## Reweighting conformational library using 2D unassigned CS data
 
