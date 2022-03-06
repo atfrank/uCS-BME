@@ -122,6 +122,7 @@ optional arguments:
 		  year={2021},
 		  publisher={ACS Publications}
 		}
+		
 * If you use uCS-BME, we request that you cite:
 		@article{moudgal2021probabilistic,
 		  title={Using Unassigned NMR Chemical Shifts to Model RNA Secondary Structure},
@@ -133,7 +134,9 @@ optional arguments:
 		  year={2021},
 		  publisher={ACS Publications}
 		}
-		as well as:	
+		
+as well as:	
+
 		@incollection{bottaro2020integrating,
 		title={Integrating molecular simulation and experimental data: a Bayesian/maximum entropy reweighting approach},
 		author={Bottaro, Sandro and Bengtsen, Tone and Lindorff-Larsen, Kresten},
