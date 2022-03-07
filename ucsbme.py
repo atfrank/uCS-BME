@@ -65,7 +65,7 @@ if __name__ == "__main__":
     bmea = bme.Reweight(name)     
     bmea.load(bme_exp , bme_sim)
 
-	thetas = [i for i in np.linspace(1, a.theta, int(a.theta*2))]
+    thetas = [i for i in np.linspace(1, a.theta, int(a.theta*2))]
     theta, avg_phi = bmea.theta_scan(thetas = thetas, nfold = a.folds, train_fraction_data = a.fraction, tmp_dir = "%s/"%(a.tmpdir))
     optimal_weights, chi2_before, chi2_after, srel = find_weights(bme_exp , bme_sim, theta = theta, name = name)
 
