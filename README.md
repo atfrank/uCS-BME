@@ -135,7 +135,7 @@ optional arguments:
 }
 ```
 
-* If you us SS2CS, we request that you cite:
+* If you use SS2CS, we request that you cite:
 
 ```
 @article{zhang2021probabilistic,
