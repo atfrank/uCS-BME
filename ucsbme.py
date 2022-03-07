@@ -11,12 +11,6 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from matplotlib.pyplot import hist2d
 
-matplotlib.rcParams['pdf.fonttype'] = 42
-matplotlib.rcParams['ps.fonttype'] = 42
-matplotlib.rcParams['mathtext.fontset'] = 'cm'
-matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['Tahoma']
-
 if __name__ == "__main__":        
     parser = argparse.ArgumentParser()
     parser.add_argument("-ex","--experimental", help="CSV file with experimental peaks (peaks those peaks to have names", required = True)
