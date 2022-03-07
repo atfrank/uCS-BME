@@ -69,10 +69,10 @@ def load_ss2cs_model(nucleus, rna = '', DIR_PATH = '/content/drive/My Drive/RESE
   model = pickle.load(open(filename, 'rb'))
   return(model)
 
-def read_exp_cs(input_exp):    
+def read_exp_cs(input_exp, sep = "\s+"):    
     # read in experimental chemical shift file
     names = ['resname', 'resid', 'nucleus', 'expcs', 'NA']
-    expcs = pd.read_csv(input_exp, sep = "\s+", header = None, names = names)
+    expcs = pd.read_csv(input_exp, sep = sep, header = None, names = names)
     return(expcs)
 
 def read_peaks(input_exp, name_one, name_two, sep = ','):    
@@ -82,17 +82,18 @@ def read_peaks(input_exp, name_one, name_two, sep = ','):
     expcs_paired.columns = ['F2', 'F1']
     return(expcs_paired)
 
-def read_computed_cs(input_sim, sep = ","):
+def read_computed_cs(input_sim, sep = ",", header = 0):
     # read in computed (simulated) chemical shift file    
-    simcs = pd.read_csv(input_sim, sep = sep, header = 0)
+    simcs = pd.read_csv(input_sim, sep = sep, header = header)
     return(simcs)
         
-def merge_exp_computed_cs(input_exp, input_sim):
+def merge_exp_computed_cs(input_exp, input_sim, sep = ",", header = None):
     # read in experimental chemical shift file
-    expcs = read_exp_cs(input_exp)
+    expcs = read_exp_cs(input_exp, sep)
 
     # read in computed (simulated) chemical shift file
-    simcs = read_computed_cs(input_sim)
+    simcs = read_computed_cs(input_sim, sep, header)
+    simcs.columns = ['model', 'resid', 'resname', 'nucleus', 'simcs', 'error']
 
     # merge predicted, measured, and accuracy information
     cs = simcs.merge(expcs, on = ['resid', 'resname', 'nucleus'])
