@@ -10,6 +10,7 @@
 ```
 conda create -n ucsbme
 conda activate ucsbme
+conda install pip
 pip install sklearn seaborn matplotlib tqdm
 ```
 
