@@ -62,7 +62,7 @@ if __name__ == "__main__":
     thetas = [i for i in np.linspace(1, a.theta, int(a.theta*2))]
     theta, avg_phi = bmea.theta_scan(thetas = thetas, nfold = a.folds, train_fraction_data = a.fraction, tmp_dir = "%s/"%(a.tmpdir))
     optimal_weights, chi2_before, chi2_after, srel = find_weights(bme_exp , bme_sim, theta = theta, name = name)
-
+    bmea.log.close()
     # collect data
     n_conformers = len(optimal_weights)
     weights = pd.DataFrame({"model": [i for i in range(1, n_conformers+1)], "w": optimal_weights, "errors": [ np.sum(np.abs(expcs_hist - simcs_hist[i])) for i in range(1, 1+n_conformers)]})
